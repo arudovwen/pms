@@ -1,0 +1,113 @@
+
+    body{
+        margin:0 auto;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+
+    }
+     .zone{
+        color:#FFF;
+        font-size:2em;
+        border-radius:4px;
+        border:1px solid #bbb;
+        transition: all 0.3s linear;
+        box-shadow:rgba(0,0,0,0.8) 0px 5px 10px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+
+    }
+
+
+
+    /* cover start */
+
+    .cover{
+        margin-top: -30px;
+
+    }
+    .img-cover{
+        width: 100%;
+        height: 500px;
+        margin-bottom: 30px;
+
+    }
+    /* cover ends */
+
+    /* grid zone */
+    .project-grid{
+        border: 1px solid  rgb(68, 116, 156);
+        background-color: rgb(68, 116, 156);
+        display: grid;
+        grid-gap: 15px;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+
+    }
+    .box{
+        background-color: #444;
+        padding: 40px;
+        margin:20px;
+    }
+    .box > img{
+        width: 100%;
+    }
+
+    .box:hover{
+        -webkit-box-transform:rotate(-6deg);
+        -moz-box-transform:rotate(-6deg);
+        -o-box-transform:rotate(-6deg);
+        transform:rotate(-6deg);
+
+    }
+    .box-container {
+        display: flex;
+        justify-content: center;
+        flex-wrap: nowrap;
+        height: 100%;
+        color: black;
+        font-size: 13px;
+        width: 100%;
+    }
+
+    .box {
+        padding: 5px 100px;
+
+    }
+    .subscribe {
+        padding: 50px;
+        width: 100%;
+        height: auto;
+        background: linear-gradient(to right, rgb(255, 255, 176), rgb(151, 255, 255));
+      }
+
+    /* footer starts */
+
+         footer {
+                position: fixed;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: 60px;
+                color: white;
+                background: black;
+                border-top: 1px solid black;
+                text-align: center;
+                transition: all 0.3s linear;
+       }
+       footer:hover{
+        box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+       }
+       .navbar-laravel {
+
+        background:url('/images/navback.jpg');
+        color: white;
+        transition: all 0.3s linear;
+        box-shadow: 0 2px 4px rgba(0,0,0,.04);
+
+        }
+        .navbar-light .navbar-brand,  .navbar-light .navbar-nav .nav-link {
+        color: white;
+    }
+    .navbar-laravel:hover {
+        box-shadow:rgba(0,0,0,0.8) 0px 5px 15px, inset rgba(0,0,0,0.15) 0px -10px 20px;
+    }
+    footer .svg-inline--fa{
+        font-size: 2.5em;
+    }
+    
