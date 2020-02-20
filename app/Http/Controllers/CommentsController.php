@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use Illuminate\Http\Request;
+use App\Notifications\CommentedUser;
 use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
@@ -35,9 +36,9 @@ class CommentsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {    
+    {
 
-      
+
        //   dd(auth()->id());
     //    $attributes = request(['body','url','commentable_type', 'commentable_id' ]);
     //    $attributes['user_id'] = auth()->id();
@@ -49,13 +50,15 @@ class CommentsController extends Controller
             'url' => $request->input('url'),
             'commentable_type' => $request->input('commentable_type'),
             'commentable_id' => $request->input('commentable_id'),
-            'user_id'=> Auth::user()->id        
+            'user_id'=> Auth::user()->id
          ]);
-    
+
        if ($comment){
+        $user = auth()->user();
+        $user->notify(new CommentedUser($comment, $user));
         return back()->with('success', 'Comment added successful');
        }
-     
+
          return back()->withInput();
        }
    }
@@ -103,6 +106,7 @@ class CommentsController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+        return back();
     }
 }

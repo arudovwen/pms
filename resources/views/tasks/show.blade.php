@@ -6,18 +6,25 @@
     <div class="row justify-content-center">
         <div class="col-md-9 col-lg-9 col-sm-3 pull-left">
 
-                          <section class="jumbotron ">
+                          <section class="jumbotron zone">
 
                               <h1 class="jumbotron-heading">{{ $task->body }}</h1>
                               <p class="lead text-muted">{{ $task->duration }}</p>
 
+                              @if ($task->completed)
+                              <strong>Status:</strong> <button type="button" class="btn btn-success btn-sm">completed</button>
+                                @else
+                              <strong>Status:</strong> <button type="button" class="btn btn-info btn-sm">open</button>
+                              @endif
+
                           </section>
 
-                              <hr>
-                              @include('partials.comments')
-                              <hr>
 
-                    <div class="bg-white container-fluid">
+
+                          @include('partials.comments')
+
+                    <div class=" bg-primary container-fluid">
+
                     <form method="post" action="{{route('comments.store')}}">
                           @csrf
 
@@ -45,9 +52,10 @@
 
                       <div class="form-group row mb-0">
                           <div class="col-md-2 offset-md-0">
-                              <button type="submit" class="btn btn-primary">
+                              <button type="submit" class="btn btn-default">
                                 Comment
                               </button>
+
 
                           </div>
                       </div>
@@ -60,16 +68,36 @@
 
             </div>
 
-
-              <div class="col-md-3 col-lg-3 col-sm-3 pull-right">
-                    <div class=" card p-3 mb-3 bg-light rounded">
+{{-- side navigation starts here--}}
+              <div class="col-md-3 col-lg-3 col-sm-3 pull-right ">
+                    <div class=" card p-3 mb-3 bg-light rounded zone">
                       <h4 >Manage</h4>
                       <ol class="list-unstyled">
+                      <li><a href="/projects/{{$task->project->id}}"><i class="fas fa-list"></i> Back to project</a></li>
+                                <hr>
                             <li><a href="/tasks"><i class="fas fa-list"></i> List tasks</a></li>
 
                             @if ($task->user_id == auth()->user()->id)
-                            <li><a href="/tasks/{{$task->id}}/edit"><i class="fas fa-edit"></i> Edit task</a></li>
-                            <br>
+
+                            <form method="POST" action="/tasks/{{$task->id}}">
+                                @csrf
+                                @method('PUT')
+                                @include('partials.errors')
+                                <hr>
+
+                                    <div class="input-group mb-3">
+                                        <input type="hidden"  name="completed" placeholder="Duration" aria-describedby="basic-addon2"  value="true" >
+
+                                        </div>
+
+                                    <div class="form-group">
+
+                                                <button type="submit" class="btn btn-primary">
+                                                    <i class="fas fa-plus-circle"></i>  Mark as Complete
+                                                </button>
+
+                                            </div>
+                            </form>
 
                           <li>
 
@@ -93,21 +121,29 @@
                           </ol>
                           @include('partials.errors')
                           @include('partials.error')
-                          <h4>Add member</h4>
+                          <h5>Add member</h5>
 
                               <form id="add-user" method="post" action="{{route('tasks.adduser')}}">
                                   @csrf
                          <div class="input-group mb-3">
-                            <input type="email" class="form-control" name="email" placeholder="Email" aria-describedby="basic-addon2" required>
+                            <div class="form-group ">
+                                <select name="email" id=""  class="form-control">
+                                    <option value="#"> Select</option>
+                                    @foreach ($users as $user)
+                                    <option value="{{$user->email}}">{{$user->name}}</option>
+
+                                    @endforeach
+                                </select>
+                            </div>
                                   <input type="hidden" name="task_id" value="{{$task->id}}">
                             <div class="input-group-append">
-                              <button class="btn btn-outline-secondary" type="submit">Add</button>
+                              <button class="btn btn-outline-secondary form-control" type="submit">Add</button>
                             </div>
                           </div>
                               </form>
 
                               @endif
-                    <h5>Team Members</h5>
+                    <h5>Task Members</h5>
                       <ol class="list-unstyled">
                         @foreach ($task->addedUsers as $user)
                         <li><a href="/tasks"> {{ $user->name }}</a>
@@ -121,7 +157,7 @@
                              }"
                          >
                          <i class="fas fa-minus-circle"></i></a>
-                         <form id="delete-user" action="/tasks/{{$task->id}}" method="post" display="none">
+                         <form id="delete-user" action="/tasks/{{$task->id}}/deleteuser" method="post" display="none">
                              @csrf
                              @method('DELETE')
                              <input type="hidden" name="task_id" value="{{$task->id}}">
@@ -140,7 +176,7 @@
 
                 </div>
 </div>
-            {{-- Comment section starts --}}
+
 
 </div>
 

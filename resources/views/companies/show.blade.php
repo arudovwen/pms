@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-9 col-lg-9 col-sm-3 pull-left">
 
-                <section class="jumbotron text-center">
+                <section class="jumbotron  zone">
 
                     <h1 class="jumbotron-heading">{{ $company->name }}</h1>
                     <p class="lead text-muted">{{ $company->description }}</p>
@@ -17,14 +17,15 @@
 
                 </section>
 
-                <div class="album py-5 bg-light">
-                        <h3 style="text-align:center; border-bottom:2px solid black">Projects</h3>
-               <div class="container-fluid">
+                <div class="album py-5 bg-light zone">
+                        <h3 style="text-align:center; ">Projects</h3>
+                        <hr>
+               <div class="container">
                     <div class="row">
 
                             @foreach ($company->projects as $project)
 
-                          <div class="col-md-4">
+                          <div class="col-md-4 ">
                                 <div class="card mb-4 shadow-sm">
                                                 <h3 class="card-header text-center">
                                                  {{ $project->name }}

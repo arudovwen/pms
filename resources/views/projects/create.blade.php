@@ -15,20 +15,20 @@
                         @csrf
                         @include('partials.errors')
                         <hr>
-                    
+
 
                         <div class="form-group ">
                             <label for="name" >Name</label>
 
-                            <input id="name" type="name" 
+                            <input id="name" type="name"
                             placeholder="Enter Name"
                              class="form-control" name="name"
                               value="{{ old('name') }}" required autofocus>
 
-                     
-                            
+
+
                         </div>
-                      
+
                         @if ($companies != null)
                         <div class="form-group">
                               <label for="company-content">Select Company</label>
@@ -37,63 +37,63 @@
                                       @foreach ($companies as $company)
                                       <option value=" {{ $company->id }}">   {{ $company->name }} </option>
                                   @endforeach
-                           
+
                               </select>
                          </div>
-                                 
-                        @endif   
+
+                        @endif
                         @if ($companies == null)
 
                             <input type="hidden" name="company_id" value="{{$company_id}}">
 
-                        @endif   
+                        @endif
 
 
-                            
-                            
-                            
+
+
+
                             <div class="form-group">
                                 <label for="description" >Description</label>
-                                    <textarea name="description" id=""  rows="3" 
+                                    <textarea name="description" id=""  rows="3"
                                                 spellcheck="false" style="resize:vertical" rows="2"
                                                 class="form-control autosize-target text-left"
-                                                placeholder="Enter Description" 
+                                                placeholder="Enter Description"
                                                 required autofocus>{{old('description')}}
                                     </textarea>
-                  
+
                             </div>
 
                             <div class="form-group">
-                                    
+
                                         <button type="submit" class="btn btn-primary">
                                             <i class="fas fa-plus-circle"></i>  Create Project
                                         </button>
-        
-                                    </div>
-                        
 
-            
-               
+                                    </div>
+
+
+
+
                     </form>
                 </div>
             </div>
         </div>
-      
+
         <div class="col-md-3 col-lg-3 col-sm-3 pull-right">
                 <div class=" card p-3 mb-3 bg-light rounded">
                   <h4 >Manage</h4>
                   <ol class="list-unstyled">
                         <li><a href="/projects"><i class="fas fa-list"></i> List Projects</a></li>
-                       
-                      
+
+
                       </ol>
                 </div>
-          
-          
-       
+
+
+
             </div>
-            
-        
+
+
     </div>
 </div>
 @endsection

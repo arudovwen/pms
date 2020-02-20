@@ -30,14 +30,14 @@
                         </div>
                         <div class="form-group row">
                                 <label for="description" class="col-md-4 col-form-label text-md-right">{{ __('Company Description') }}</label>
-    
+
                                 <div class="col-md-6">
-                                        <textarea name="description" id="" cols="50" rows="10" 
-                                         class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" 
+                                        <textarea name="description" id="" cols="50" rows="10"
+                                         class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
                                           placeholder="Description" required autofocus>{{$company->description}}
                                             </textarea>
-                                  
-    
+
+
                                     @if ($errors->has('description'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('description') }}</strong>
@@ -46,18 +46,18 @@
                                 </div>
                             </div>
 
-                            
+
                             <div class="form-group row mb-0">
                                     <div class="col-md-8 offset-md-4">
                                         <button type="submit" class="btn btn-primary">
                                             <i class="fas fa-plus-circle"></i>  {{ __('Update') }}
                                         </button>
-        
+
                                     </div>
                                 </div>
 
-            
-               
+
+
                     </form>
                 </div>
             </div>
@@ -68,11 +68,11 @@
                   <ol class="list-unstyled">
                         <li><a href="/companies/{{$company->id}}">View Company</a></li>
                         <li><a href="/companies">All Companies</a></li>
-                        
+
                       </ol>
                 </div>
-          
-            
+
+
             </div>
     </div>
 </div>

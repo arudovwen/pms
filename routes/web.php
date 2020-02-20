@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,7 +13,7 @@
 */
 Route::get('/',  function(){
     return view('welcome');
-});  
+});
 
 
 
@@ -26,7 +27,7 @@ Route::group(['middleware' => ['auth']], function () {
 
         Route::get('projects/create/{company_id?}', 'ProjectsController@create');
 
-        
+
         Route::post('projects/adduser', 'ProjectsController@adduser')->name('projects.adduser');
         Route::delete('projects/{id}/deleteuser', 'ProjectsController@deleteuser');
 
@@ -39,4 +40,18 @@ Route::group(['middleware' => ['auth']], function () {
         Route::resource('roles', 'RolesController');
         Route::resource('users', 'UsersController');
         Route::resource('comments', 'CommentsController');
+});
+
+Route::get('/x', function () {
+    foreach (Auth::user()->notifications as $notification) {
+         dd($notification->type);
+    }
+
+});
+
+Route::get('/markasread', function () {
+    foreach (Auth::user()->unreadNotifications as $notification) {
+        $notification->markAsRead();
+        return redirect()->back();
+    }
 });

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Task;
 use App\User;
+use App\Company;
 use App\Project;
 use App\TaskUser;
-use App\Company;
-use App\Task;
 use Illuminate\Http\Request;
+use App\Notifications\EditedTask;
+use App\Notifications\TaskedUser;
+use App\Notifications\CreatedTask;
 
 class TasksController extends Controller
 {
@@ -61,8 +64,10 @@ public function adduser(Request $request)
 
         if ($user && $task) {
          $task-> addedUsers()->attach($user->id);
+         $users = auth()->user();
+         $users->notify(new TaskedUser($task, $user));
 
-         return redirect()->route('tasks.show', ['task'=> $task->id])
+         return redirect()->back()
          ->with('success', request('email').' was added successfully');
         }
     }
@@ -107,6 +112,8 @@ public function deleteuser(Request $request){
         $task = Task::create($attributes);
 
         if ($task){
+            $user = auth()->user();
+            $user->notify(new CreatedTask($task, $user));
           return redirect()->route('tasks.show', ['task'=>$task->id])->with('success', 'task created successful');
         }
         }else{
@@ -120,14 +127,14 @@ public function deleteuser(Request $request){
      * @param  \App\Task  $task
      * @return \Illuminate\Http\Response
      */
-    public function show(Task $task)
+    public function show(Task $task, User $user )
     {
 
-
+         $users = User::all();
          $taskUser = TaskUser::all();
          $comments = $task->comments;
 
-        return view('tasks.show', compact('task', 'comments','taskUser'));
+        return view('tasks.show', compact('task', 'comments','taskUser','users'));
     }
 
     /**
@@ -150,9 +157,15 @@ public function deleteuser(Request $request){
      */
     public function update(Request $request, Task $task)
     {
-        $task->update(request(['name','duration']));
+
+        // $task->update(request(['completed']));
+        $task->completed = 1;
+        $task->save();
+
         if ($task){
-          return redirect()->route('tasks.show',  compact('task'))->with('success', 'Task Update successful');
+            $user = auth()->user();
+            $user->notify(new EditedTask($task,$user));
+          return back()->with('success', 'Task Update successful');
         }else{
           return redirect()->back()->withInput();
         }

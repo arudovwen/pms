@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Jenssegers\Agent\Agent;
+
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +17,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Schema::defaultStringLength(191);
+        $agent = new Agent();
+        view()->share('agent', $agent);
     }
 
     /**

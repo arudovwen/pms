@@ -167,7 +167,8 @@ return [
         /*
          * Package Service Providers...
          */
-
+        Unicodeveloper\Paystack\PaystackServiceProvider::class,
+        Jenssegers\Agent\AgentServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -176,6 +177,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Unicodeveloper\Paystack\PaystackServiceProvider::class,
+        Jenssegers\Agent\AgentServiceProvider::class,
 
     ],
 
@@ -225,6 +228,9 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Paystack' => Unicodeveloper\Paystack\Facades\Paystack::class,
+        'Agent' => Jenssegers\Agent\Facades\Agent::class,
+
 
     ],
 
